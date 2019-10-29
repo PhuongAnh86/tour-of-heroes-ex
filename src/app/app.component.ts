@@ -1,36 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import {Hero} from './hero';
 
 @Component({
   selector: 'app-root',
-  template: `<h1>{{title}}</h1>
-  <h2>My favourite hero is: {{myHero.name}}</h2>
-  <p>Heroes:</p>
-  <ul>
-    <li *ngFor="let hero of heroes">
-      {{hero.name}}
-    </li>
-  </ul>
-  <p *ngIf="heroes.length>3">There are many heroes!</p>`,
+ templateUrl:'./app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'Tour of Heroes'; 
- /*  heroes:Hero[]= [{id:1,name:'Windstorm'},
-  {id:13,name: 'Bombasto'}
-    
-  ]; */
-  /* heroes:Hero[]=[
-    new Hero(1, 'Windstorm'),
-    new Hero(13, 'Bombasto'),
-    new Hero(15, 'Magneta'),
-    new Hero(20, 'Tornado')
-  ]; */
-  heroes = [
-    new Hero(1, 'Windstorm'),
-    new Hero(13, 'Bombasto'),
-    new Hero(15, 'Magneta'),
-    new Hero(20, 'Tornado')
-  ];
-  myHero =this.heroes[0] ;
+export class AppComponent implements OnInit {
+
+  ngOnInit() {
+    this.resetHeroes();
+    /* this.setCurrentClasses();
+    this.setCurrentStyles(); */
+  }
+  
+  title = 'Template Syntax'; 
+  heroImageUrl = 'http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png';
+  getVal(): number { return 2; }
+  hero: Hero;
+  currentHero:Hero;
+  heroes:Hero[];
+  name:string=Hero.heroes[0].name;
+  resetHeroes():void{
+    this.heroes = Hero.heroes.map(hero => hero.clone());
+    this.currentHero = this.heroes[0];
+    this.hero = this.currentHero;
+    /* this.heroesWithTrackByCountReset = 0; */
+  }
 }
