@@ -27,4 +27,15 @@ export class AppComponent implements OnInit {
     this.hero = this.currentHero;
     /* this.heroesWithTrackByCountReset = 0; */
   }
+  alert(msg?: string)      { window.alert(msg); }
+  deleteHero(hero?:Hero):void{
+
+    this.alert(`Delete ${hero?hero.name: "the hero"}`);
+  }
+  onSave(event?: MouseEvent){
+    const evtMsg = event ? ' Event target is ' + (event.target as HTMLElement).textContent : '';
+    this.alert('Saved.' + evtMsg);
+    if (event) { event.stopPropagation(); }
+  }
+  fontSizePx = 16;
 }

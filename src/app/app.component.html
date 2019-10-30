@@ -3,3 +3,53 @@
 <p>My current hero is {{currentHero.name}}</p>
 <p>{{title}}</p>
 <div><img src="{{heroImageUrl}}"></div>
+<div class="context">
+    <label>Type something: 
+    <input #customerInput type="text" (keyup)="0"/>{{customerInput.value}}
+    </label>
+</div>
+<hr>
+<h2>Statement context</h2>
+<div>
+    <span>Component statement context ( (click)="onSave() )</span>
+    <button type="button" (click)="deleteHero()" >Delete hero</button>
+</div>
+<p>Template $event statement context</p>
+<button type="button" (click)="onSave($event)">Save</button>
+<p>Template input variable statement context (let hero)</p>
+<div class="context" *ngFor="let hero of heroes">
+    <button (click)="deleteHero(hero)">{{hero.name}}</button>
+</div>
+<hr>
+<h2>New Mental Model</h2>
+<h3>Mental Model</h3>
+<img src="{{heroImageUrl}}">
+<button type="button" disabled>Save</button>
+<div>Mental Model
+    <app-hero-detail></app-hero-detail>
+</div>
+<!-- Will save only once -->
+<div (click)="onSave()" clickable>
+    <button (click)="onSave($event)">Save, no propagation</button>
+  </div>
+  
+  <!-- Will save twice -->
+  <div (click)="onSave()" clickable>
+    <button (click)="onSave()">Save w/ propagation</button>
+  </div>
+<hr>
+<p>Two-way Binding</p>  
+<app-sizer [(size)]="fontSizePx"></app-sizer>
+<div [style.font-size.px]="fontSizePx">Resizable Text</div>
+<label>FontSize (px): <input [(ngModel)]="fontSizePx"></label>
+<h3>De-sugared two-way binding</h3>
+  <app-sizer [size]="fontSizePx" (sizeChange)="fontSizePx=$event"></app-sizer>
+  <hr>
+  <p>NgSwitch Binding</p>
+  <p>Pick your favorite hero</p>
+  <label *ngFor="let hero of heroes">
+    <input type="radio" name="heroes" [value]="hero" [(ngModel)]="currentHero">{{hero.name}}
+  </label>
+  <div>
+      {{currentHero.name}}
+  </div>
